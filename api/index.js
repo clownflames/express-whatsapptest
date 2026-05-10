@@ -19,10 +19,28 @@ import { createBot } from 'whatsapp-cloud-api';
     // Start express server to listen for incoming messages
     // NOTE: See below under `Documentation/Tutorial` to learn how
     // you can verify the webhook URL and make the server publicly available
-    await bot.startExpressServer({
+    const server = await bot.startExpressServer({
       webhookVerifyToken,
       webhookPath:"/webhook",
     });
+
+
+    server.app.get("/send-text", async (req, res) => {
+      const { to, text } = req.query;
+      if (!to || !text) {
+        return res.status(400).send("Missing 'to' or 'text' query parameter");
+      } 
+      try {
+        await bot.sendText(to, text);
+        res.send(`Message sent to ${to}`);
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Failed to send message');
+      }
+    });
+
+
+    
 
     // Listen to ALL incoming messages
     // NOTE: remember to always run: await bot.startExpressServer() first
@@ -38,4 +56,7 @@ import { createBot } from 'whatsapp-cloud-api';
   } catch (err) {
     console.log(err);
   }
+
+
+
 })();
