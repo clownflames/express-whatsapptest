@@ -1,3 +1,4 @@
+import { get } from 'node:http';
 import { createBot } from 'whatsapp-cloud-api';
 // or if using require:
 // const { createBot } = require('whatsapp-cloud-api');
@@ -24,20 +25,27 @@ import { createBot } from 'whatsapp-cloud-api';
       webhookPath:"/webhook",
     });
 
+    bot.on("text",(message)=>{
+      bot.sendText(message.from,"Your message is ready")
+    })
 
-    server.app.get("/send-text", async (req, res) => {
-      const { to, text } = req.query;
-      if (!to || !text) {
-        return res.status(400).send("Missing 'to' or 'text' query parameter");
-      } 
-      try {
-        await bot.sendText(to, text);
-        res.send(`Message sent to ${to}`);
-      } catch (err) {
-        console.error(err);
-        res.status(500).send('Failed to send message');
-      }
-    });
+
+    // server.app.get("/send-text", async (req, res) => {
+    //   const { to, text } = req.query;
+    //   if (!to || !text) {
+    //     return res.status(400).send("Missing 'to' or 'text' query parameter");
+    //   } 
+    //   try {
+    //     await bot.sendText(to, text);
+    //     res.send(`Message sent to ${to}`);
+    //   } catch (err) {
+    //     console.error(err);
+    //     res.status(500).send('Failed to send message');
+    //   }
+    // });
+
+
+
 
 
     
