@@ -14,7 +14,7 @@ import { createBot } from 'whatsapp-cloud-api';
     const bot = createBot(from, token);
 
     // Send text message
-    const result = await bot.sendText(to, 'Hello world');
+    // const result = await bot.sendText(to, 'Hello world');
 
     // Start express server to listen for incoming messages
     // NOTE: See below under `Documentation/Tutorial` to learn how
