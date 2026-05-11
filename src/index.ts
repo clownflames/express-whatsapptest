@@ -206,7 +206,4 @@ app.post("/webhook", async (req, res) => {
 | START SERVER
 |--------------------------------------------------------------------------
 */
-
-app.listen(PORT, () => {
-  console.log(`Server Running On Port ${PORT}`);
-});
+export default app;
