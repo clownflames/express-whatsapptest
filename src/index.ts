@@ -91,6 +91,11 @@ app.get("/webhook", (req, res) => {
   return res.sendStatus(403);
 });
 
+
+app.get("/",function(req,res){
+  res.send("Hello user")
+})
+
 /*
 |--------------------------------------------------------------------------
 | WEBHOOK RECEIVE
