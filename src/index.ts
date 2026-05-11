@@ -80,6 +80,13 @@ app.get("/webhook", (req, res) => {
   const token = req.query["hub.verify_token"];
   const challenge = req.query["hub.challenge"];
 
+
+  client.messages.sendText({
+    phoneNumberId:PHONE_ID!,
+    to:"6378695548",
+    body:"Someone visit the webhook"
+  })
+
   if (
     mode === "subscribe" &&
     token === process.env.VERIFY_TOKEN
