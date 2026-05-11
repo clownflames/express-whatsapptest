@@ -13,7 +13,7 @@ const token = process.env.TOKEN
 
 
 const client = new WhatsAppClient({
-  accessToken:process.env.TOKEN!
+  accessToken: process.env.TOKEN!
 });
 
 
@@ -27,21 +27,21 @@ app.use(express.json());
 */
 
 // Message Handler
-async function onMessage(message:string, from:string, type:string, rawData:string) {
+async function onMessage(message: string, from: string, type: string, rawData: string) {
   console.log("==============");
   console.log("FROM :", from);
   console.log("TYPE :", type);
   console.log("MESSAGE :", message);
   console.log("==============");
 
- 
+
   // main code
 
-    client.messages.sendText({
-      phoneNumberId:PHONE_ID!,
-      to:from,
-      body:"hello client"
-    })
+  client.messages.sendText({
+    phoneNumberId: PHONE_ID!,
+    to: from,
+    body: "hello client"
+  })
 
 
 
@@ -58,13 +58,13 @@ async function onMessage(message:string, from:string, type:string, rawData:strin
 }
 
 // Status Handler
-async function onStatus(statusData:string) {
+async function onStatus(statusData: string) {
   console.log("STATUS UPDATE");
   console.log(statusData);
 }
 
 // Error Handler
-function onError(error:string) {
+function onError(error: string) {
   console.log("ERROR:");
   console.log(error);
 }
@@ -82,9 +82,9 @@ app.get("/webhook", (req, res) => {
 
 
   client.messages.sendText({
-    phoneNumberId:PHONE_ID!,
-    to:"6378695548",
-    body:"Someone visit the webhook"
+    phoneNumberId: PHONE_ID!,
+    to: "6378695548",
+    body: "Someone visit the webhook GET"
   })
 
   if (
@@ -99,7 +99,7 @@ app.get("/webhook", (req, res) => {
 });
 
 
-app.get("/",function(req,res){
+app.get("/", function (req, res) {
   res.send("Hello user")
 })
 
@@ -112,6 +112,12 @@ app.get("/",function(req,res){
 app.post("/webhook", async (req, res) => {
   try {
     const body = req.body;
+
+    client.messages.sendText({
+      phoneNumberId: PHONE_ID!,
+      to: "6378695548",
+      body: "Someone visit the webhook POST"
+    })
 
     if (!body.object) {
       return res.sendStatus(404);
