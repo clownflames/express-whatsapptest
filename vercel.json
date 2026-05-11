@@ -1,5 +1,6 @@
 {
   "version": 2,
+  
   "builds": [
     {
       "src": "src/index.ts",
@@ -12,4 +13,5 @@
       "dest": "/src/index.ts"
     }
   ]
+  
 }
